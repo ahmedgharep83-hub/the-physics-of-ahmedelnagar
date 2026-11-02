@@ -1,0 +1,164 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Cairo', sans-serif;
+  background-color: #0d0e12;
+}
+
+#webgl-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#left-page-container {
+  position: absolute;
+  width: 380px;
+  max-height: 85%;
+  top: 5%;
+  left: 5%;
+  background: rgba(251, 249, 244, 0.95);
+  border-radius: 8px;
+  padding: 20px;
+  pointer-events: auto;
+  overflow-y: auto;
+  border: 1px solid #e2dacd;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.lesson-badge {
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.lesson-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 5px 0;
+  color: #1a1a1a;
+}
+
+.concept-box {
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.formula-callout {
+  background: #f1ebd9;
+  border-right: 4px solid #d97706;
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-family: monospace;
+  color: #111827;
+}
+
+.quiz-container {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.quiz-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+.quiz-option {
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding: 6px;
+  margin: 4px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background: #f9fafb;
+}
+
+.flap-wrapper {
+  margin-top: 10px;
+}
+
+.flap-cover {
+  background: #e5dec9;
+  border: 1px dashed #b5a886;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #574c33;
+  font-weight: bold;
+}
+
+.flap-content {
+  background: #fefce8;
+  padding: 8px;
+  font-size: 0.75rem;
+  color: #713f12;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+#hud-navbar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  padding: 6px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  pointer-events: auto;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+.hud-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.hud-title {
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 0 10px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
