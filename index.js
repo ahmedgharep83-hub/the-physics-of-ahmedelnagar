@@ -1,11 +1,11 @@
 let scene, camera, renderer, controls, bookGroup;
 
-// بيانات الدروس التفاعلية
+// بيانات الدروس
 const lessonsData = [
   {
     lesson_id: "٦-١",
     title: "القدرة والكفاءة",
-    concept: "القدرة هي معدل بذل الشغل أو تحويل الطاقة، بينما تعبر الكفاءة عن نسبة الطاقة الناتجة المفيدة إلى الطاقة الكلية المضافة.",
+    concept: "القدرة هي معدل بذل الشغل أو تحويل الطاقة، بينما تعبر الكفاءة عن نسبة الطاقة الناتجة المفيدة.",
     formula: "P = W / t",
     quiz: {
       question: "إذا زادت الطاقة المستهلكة لجهاز مع ثبات الشغل الناتج، فماذا يحدث لكفاءته؟",
@@ -16,12 +16,13 @@ const lessonsData = [
   }
 ];
 
-let currentSpreadIndex = 0;
 let quizAnswered = false;
 
-function init3D() {
+window.onload = function() {
   const container = document.getElementById('webgl-container');
-  
+  if(!container) return;
+
+  // إعداد المشهد ثلاثي الأبعاد
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x7c6e59);
 
@@ -74,15 +75,20 @@ function init3D() {
   bookGroup.rotation.y = -Math.PI / 12;
   scene.add(bookGroup);
 
-  // تحميل بيانات الدرس الأول وتفعيل الأزرار
-  loadLessonData();
+  // تفعيل أزرار التفاعل واختبار الأسئلة
+  setupUI();
 
-  window.addEventListener('resize', onWindowResize);
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
   animate();
-}
+};
 
-function loadLessonData() {
-  const data = lessonsData[currentSpreadIndex];
+function setupUI() {
+  const data = lessonsData[0];
   document.getElementById('lesson-id-badge').innerText = `الدرس ${data.lesson_id}`;
   document.getElementById('lesson-title-text').innerText = data.title;
   document.getElementById('concept-text').innerText = data.concept;
@@ -97,62 +103,45 @@ function loadLessonData() {
     const btn = document.createElement('button');
     btn.className = 'quiz-option';
     btn.innerText = opt;
-    btn.onclick = () => selectOption(idx, data.quiz.correct);
+    btn.onclick = function() {
+      quizAnswered = true;
+      const allBtns = optionsContainer.querySelectorAll('button');
+      allBtns.forEach((b, i) => {
+        b.style.pointerEvents = 'none';
+        if(i === data.quiz.correct) {
+          b.style.backgroundColor = '#dcfce7';
+          b.style.borderColor = '#22c55e';
+          b.style.color = '#15803d';
+        } else if(i === idx) {
+          b.style.backgroundColor = '#fee2e2';
+          b.style.borderColor = '#ef4444';
+          b.style.color = '#b91c1c';
+        }
+      });
+      document.getElementById('flap-btn').style.background = '#fef08a';
+      document.getElementById('flap-btn').innerText = '🔓 اضغط هنا لفتح التفسير العلمي';
+    };
     optionsContainer.appendChild(btn);
   });
 
-  const flapBtn = document.getElementById('flap-btn');
-  flapBtn.onclick = toggleFlap;
-}
-
-function selectOption(selectedIndex, correctIndex) {
-  quizAnswered = true;
-  const options = document.querySelectorAll('.quiz-option');
-  
-  options.forEach((btn, idx) => {
-    btn.style.pointerEvents = 'none';
-    if(idx === correctIndex) {
-      btn.style.backgroundColor = '#dcfce7';
-      btn.style.borderColor = '#22c55e';
-      btn.style.color = '#15803d';
-      btn.style.fontWeight = 'bold';
-    } else if(idx === selectedIndex) {
-      btn.style.backgroundColor = '#fee2e2';
-      btn.style.borderColor = '#ef4444';
-      btn.style.color = '#b91c1c';
+  document.getElementById('flap-btn').onclick = function() {
+    if(!quizAnswered) {
+      alert('اختر الإجابة على السؤال أولاً!');
+      return;
     }
-  });
-
-  const flapBtn = document.getElementById('flap-btn');
-  flapBtn.style.background = '#fef08a';
-  flapBtn.innerText = '🔓 اضغط هنا لفتح التفسير العلمي ("لماذا؟")';
-}
-
-function toggleFlap() {
-  if(!quizAnswered) {
-    alert('من فضلك اختر الإجابة على السؤال أولاً!');
-    return;
-  }
-  const flapText = document.getElementById('flap-text');
-  if(flapText.style.display === 'none') {
-    flapText.style.display = 'block';
-    document.getElementById('flap-btn').innerText = '🔒 إخفاء التفسير العلمي';
-  } else {
-    flapText.style.display = 'none';
-    document.getElementById('flap-btn').innerText = '🔓 إظهار التفسير العلمي';
-  }
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+    const flapText = document.getElementById('flap-text');
+    if(flapText.style.display === 'none' || flapText.style.display === '') {
+      flapText.style.display = 'block';
+      this.innerText = '🔒 إخفاء التفسير العلمي';
+    } else {
+      flapText.style.display = 'none';
+      this.innerText = '🔓 إظهار التفسير العلمي';
+    }
+  };
 }
 
 function animate() {
   requestAnimationFrame(animate);
-  controls.update();
-  renderer.render(scene, camera);
+  if(controls) controls.update();
+  if(renderer && scene && camera) renderer.render(scene, camera);
 }
-
-window.onload = init3D;
