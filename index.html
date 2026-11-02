@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكتاب التفاعلي ثلاثي الأبعاد - فيزياء البكالوريا</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- مكتبات الـ 3D والحركة -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- حاوية المشهد ثلاثي الأبعاد -->
+  <div id="webgl-container"></div>
+
+  <!-- واجهة المستخدم -->
+  <div id="ui-layer">
+    <div id="left-page-container">
+      <div class="lesson-header">
+        <span class="lesson-badge" id="lesson-id-badge">الدرس ٦-١</span>
+        <h1 class="lesson-title" id="lesson-title-text">القدرة والكفاءة</h1>
+      </div>
+
+      <p class="concept-box" id="concept-text">
+        القدرة هي معدل بذل الشغل أو تحويل الطاقة، بينما تعبر الكفاءة عن نسبة الطاقة الناتجة المفيدة إلى الطاقة الكلية المضافة.
+      </p>
+
+      <div class="formula-callout" id="formula-text">P = W / t</div>
+
+      <div class="quiz-container">
+        <div class="quiz-title" id="quiz-question">سؤال التنبؤ التفاعلي:</div>
+        <div id="quiz-options-container">
+          <button class="quiz-option">تزداد كفاءة الجهاز.</button>
+          <button class="quiz-option">تقل كفاءة الجهاز.</button>
+        </div>
+      </div>
+
+      <div class="flap-wrapper">
+        <div class="flap-cover" id="flap-btn">🔒 اختر توقعك أولاً لفتح التفسير العلمي</div>
+        <div class="flap-content" id="flap-text" style="display: none;">
+          الكفاءة تعتمد عكسياً على الطاقة المفقودة.
+        </div>
+      </div>
+    </div>
+
+    <div id="hud-navbar">
+      <button class="hud-btn">&lt;</button>
+      <div class="hud-title" id="hud-lesson-name">الدرس ٦-١</div>
+      <button class="hud-btn">&gt;</button>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
